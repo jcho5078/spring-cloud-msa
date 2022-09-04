@@ -1,0 +1,33 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            #to java values in GlobalFilter class
+              msg: globalfilter arg value
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE #http://localhost:0/
+          predicates:
+            - Path=/user-service/**
+            - Method=GET, POST
+          filters:
+#            - AddRequestHeader=check-request, check-request-value
+#            - AddResponseHeader=check-response, check-response-value
+            - CustomFilter
+            - name: LoggingFilter
+              args:
+                msg: logger Filter arg value

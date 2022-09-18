@@ -31,3 +31,8 @@ spring:
             - name: LoggingFilter
               args:
                 msg: logger Filter arg value
+        - id: catalog-service
+            uri: lb://CATALOG-SERVICE
+            predicates:
+              - Path=/catalog-service/**
+              - Method=GET, POST

@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/dept")
+@RequestMapping("hrService/dept")
 public class DeptController {
 
     @Autowired
